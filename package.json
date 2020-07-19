@@ -1,0 +1,19 @@
+{
+  "name": "covid19jp-react",
+  "version": "1.0.0",
+  "description": "COVID-19 Tracker Site of Japan",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hehan-hqu/covid19jp-react.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hehan-hqu/covid19jp-react/issues"
+  },
+  "homepage": "https://github.com/hehan-hqu/covid19jp-react#readme"
+}
