@@ -1,6 +1,3 @@
-// process.argv.forEach((val, index) => {
-// 	console.log(`${index}:${val}`);
-// });
+const car = require('./car').car;
 
-const args = require('minimist')(process.argv.slice(2));
-console.log(args['name']);
+console.log(car);
