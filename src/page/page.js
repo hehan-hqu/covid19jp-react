@@ -5,7 +5,7 @@ import styles from './style.module.css'
 import Category from '../category/Category'
 import Trend from '../trend/Trend'
 import { Divider, Skeleton, Select, Row } from 'antd'
-import 'antd/dist/antd.css'
+// import 'antd/dist/antd.css'
 const { Option } = Select
 
 class Page extends Component {
@@ -218,7 +218,7 @@ class Page extends Component {
                                     </Select>
                                 </p>
                             </div> */}
-                            <Divider />
+                            {/* <Divider /> */}
                             <Trend cumulative={cumulativeList} />
                         </div>
                     </div>

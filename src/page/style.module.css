@@ -88,30 +88,30 @@ footer {
     color: #6c63ff;
     line-height: 18px;
     font-weight: 600;
-    background-color: #fff;
+    /* background-color: #fff; */
     padding-bottom: 10px;
 }
-.table {
+/* .table {
     height: 100%;
     width: 100%;
     background-color: #fff;
-}
-.newsBox {
+} */
+/* .newsBox {
     width: 90%;
     margin: 0 auto;
     background: #fff;
-}
-.trendBox {
+} */
+/* .trendBox {
     margin-top: 30px;
     margin-bottom: 20px;
-}
-.rumorBox {
+} */
+/* .rumorBox {
     width: 90%;
     margin: 0 auto;
     margin-top: 20px;
     background: #fff;
-}
-.footer {
+} */
+/* .footer {
     margin-top: 20px;
     padding-bottom: 20px;
     background: #fff;
@@ -121,7 +121,7 @@ footer {
     font-size: 12px;
     color: #6c63ff;
     line-height: 14px;
-}
-.footer a {
+} */
+/* .footer a {
     color: #6c63ff;
-}
+} */

@@ -1,16 +1,8 @@
 import * as React from 'react'
 import styles from './style.module.css'
-import { Col, Statistic, Card } from 'antd'
-import 'antd/dist/antd.css'
-import { ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons'
-//无状态组件
-// export interface CategoryProps {
-//   title: string
-//   count: number
-//   addcount: number
-//   rate: number
-//   color: string
-// }
+import { Col, Statistic } from 'antd'
+// import 'antd/dist/antd.css'
+
 const Category = ({ title, count, addcount, rate, color }) => {
     // console.log(rate)
     let str = ''

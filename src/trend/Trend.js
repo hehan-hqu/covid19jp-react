@@ -7,6 +7,7 @@ import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
+import styles from './style.module.css'
 
 const getOption = (source) => {
     const symbolSize = 0
@@ -93,8 +94,9 @@ const Trend = (props) => {
             option={getOption(props.cumulative)}
             notMerge={true}
             lazyUpdate={true}
+            className={styles.trend}
             // onEvents={onEvents}
-            // style={{ width: '50%' }}
+            // style={{ backgroundColor: '#fff' }}
         />
     )
 }
