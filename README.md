@@ -6,7 +6,7 @@ COVID-19 Tracker Site of Japan
 
 ## How to use?
 
-'''
-<p>npm init</p>
-<p>npm start</p>
-'''
+```
+npm init
+npm start
+```
