@@ -1,33 +1,33 @@
 .item {
-    /* display: block; */
     background: #fff;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-    margin: 5px 5px;
-    padding: 0.8rem;
+    margin: 1vmin;
+    padding: 1vmin;
+    line-height: 100%;
 }
 .label {
-    font-size: 0.9rem;
     font-weight: 800;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1vmin;
+    font-size: 2vmin;
 }
 
+.data {
+    height: 3vmin;
+    align-self: center;
+    justify-content: center;
+}
 .value {
-    font-size: 1.4rem;
+    font-size: 2vmin;
     font-weight: 800;
-    display: inline;
+    display: inline-block;
 }
 .diff {
-    font-size: 1rem;
-    line-height: 1em;
+    font-size: 2vmin;
     font-weight: 700;
-    display: inline;
+    display: inline-block;
     word-wrap: none;
 }
-
 .description {
-    font-size: 0.8rem;
-    margin-top: 0.2rem;
-    line-height: 1.2em;
-    min-height: 1.2rem;
+    font-size: 1vmin;
 }

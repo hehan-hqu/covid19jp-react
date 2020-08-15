@@ -9,10 +9,11 @@ import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
 import styles from './style.module.css'
 
-const getOption = (source) => {
+const getOption = (title, label, source) => {
     const symbolSize = 0
-    const option = {
-        legend: { data: ['感染者数', '重症者数', '死亡者数', '回復者数', '既存感染者数', '検査実施人数'] },
+    let option = {
+        title: { text: title },
+        legend: { data: label },
         tooltip: {
             trigger: 'axis',
             axisPointer: {
@@ -28,60 +29,25 @@ const getOption = (source) => {
             }
         },
         dataset: {
-            dimensions: ['日付', '累積感染者数', '重症者数', '死亡者数', '回復者数', '既存感染者数', '検査実施人数'],
+            dimensions: ['日付', '感染者数', '累積感染者数', '死亡者数', '回復者数', '既存感染者数'],
             source: source
         },
         xAxis: { type: 'time', gridIndex: 0, name: '日付' },
         yAxis: {
             type: 'value'
         },
-        series: [
-            {
-                type: 'line',
-                symbolSize: symbolSize,
-                encode: {
-                    x: '日付',
-                    y: '累積感染者数'
-                },
-                name: '累積感染者数'
+        series: []
+    }
+    for (let i = 0; i < label.length; i++) {
+        option.series.push({
+            type: 'line',
+            symbolSize: symbolSize,
+            encode: {
+                x: '日付',
+                y: label[i]
             },
-            {
-                type: 'line',
-                symbolSize: symbolSize,
-                encode: {
-                    x: '日付',
-                    y: '既存感染者数'
-                },
-                name: '既存感染者数'
-            },
-            {
-                type: 'line',
-                symbolSize: symbolSize,
-                encode: {
-                    x: '日付',
-                    y: '重症者数'
-                },
-                name: '重症者数'
-            },
-            {
-                type: 'line',
-                symbolSize: symbolSize,
-                encode: {
-                    x: '日付',
-                    y: '死亡者数'
-                },
-                name: '死亡者数'
-            },
-            {
-                type: 'line',
-                symbolSize: symbolSize,
-                encode: {
-                    x: '日付',
-                    y: '回復者数'
-                },
-                name: '回復者数'
-            }
-        ]
+            name: label[i]
+        })
     }
     return option
 }
@@ -91,13 +57,11 @@ const Trend = (props) => {
     return (
         <ReactEcharts
             echarts={echarts}
-            option={getOption(props.cumulative)}
+            option={getOption(props.title, props.label, props.cumulative)}
             notMerge={true}
             lazyUpdate={true}
             className={styles.trend}
-            // onEvents={onEvents}
-            // style={{ backgroundColor: '#fff' }}
-        />
+        ></ReactEcharts>
     )
 }
 

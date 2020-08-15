@@ -28,14 +28,8 @@ footer {
     }
 }
 .top {
-    /* background-image: url('japan map.jpg'); */
     background-color: #ad232f;
-    /* height: 150px; */
-    /* width: 100%; */
-    /* background-size: cover; */
     text-align: center;
-    /* margin: 20px 0px; */
-    /* line-height: 36px; */
 }
 .title {
     text-align: center;
@@ -43,14 +37,15 @@ footer {
     padding: 0.4em;
     font-size: 4vmin;
     color: #fff;
+    line-height: 100%;
     /* font-weight: 500; */
     /* padding-top: 10%; */
 }
 .tip {
-    font-size: 16px;
+    font-size: 2vmin;
     color: #fff;
     font-weight: 400;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 /* .map {
   height: 100%;
@@ -62,9 +57,17 @@ footer {
 } */
 .box {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: stretch;
-    margin: 24px 0;
+    margin: 10px 0;
+    flex-wrap: wrap;
+}
+.graph {
+    display: flex;
+    justify-content: space-between;
+    align-items: stretch;
+    /* flex-wrap: wrap; */
+    flex-wrap: nowrap;
 }
 /* .allCountry {
   background-color: #6c63ff;
@@ -74,13 +77,13 @@ footer {
   color: #fff;
   font-size: 12px;
 } */
-.card {
+/* .card {
     font-size: 14px;
     color: #616161;
     line-height: 22px;
     text-align: start;
-}
-.maptip {
+} */
+/* .maptip {
     display: flex;
     justify-content: flex-start;
     font-size: 14px;
@@ -88,9 +91,9 @@ footer {
     color: #6c63ff;
     line-height: 18px;
     font-weight: 600;
-    /* background-color: #fff; */
-    padding-bottom: 10px;
-}
+} */
+/* background-color: #fff; */
+/* padding-bottom: 10px; */
 /* .table {
     height: 100%;
     width: 100%;

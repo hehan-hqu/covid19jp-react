@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import styles from './style.module.css'
 import Category from '../category/Category'
 import Trend from '../trend/Trend'
-import { Divider, Skeleton, Select, Row } from 'antd'
+import { Divider, Skeleton, Select, Row, Col } from 'antd'
 // import 'antd/dist/antd.css'
 const { Option } = Select
 
@@ -105,23 +105,21 @@ class Page extends Component {
             let cumulative = [
                 [
                     'date',
+                    'confirmed',
                     'confirmedCumulative',
                     'activeCumulative',
-                    'criticalCumulative',
                     'deceasedCumulative',
-                    'recoveredCumulative',
-                    'testedCumulative'
+                    'recoveredCumulative'
                 ]
             ]
             dailys.forEach((item) => {
                 cumulative.push([
                     item.date,
+                    item.confirmed,
                     item.confirmedCumulative,
-                    item.criticalCumulative,
                     item.deceasedCumulative,
                     item.recoveredCumulative,
-                    item.activeCumulative,
-                    item.testedCumulative
+                    item.activeCumulative
                 ])
             })
             this.setState({
@@ -159,7 +157,7 @@ class Page extends Component {
                         </div>
                         <Divider />
                         <div>
-                            <Row justify="space-around" gutter={16} className={styles.box}>
+                            <div className={styles.box}>
                                 <Category
                                     title={'累積感染者数'}
                                     count={today.confirmedCumulative}
@@ -202,7 +200,9 @@ class Page extends Component {
                                     rate={(today.confirmedCumulative / today.testedCumulative) * 100}
                                     color={'#1876d3'}
                                 />
-                            </Row>
+                            </div>
+
+                            {/* </Row> */}
                             {/* <Divider />
                             <div>
                                 <p>
@@ -218,8 +218,14 @@ class Page extends Component {
                                     </Select>
                                 </p>
                             </div> */}
-                            {/* <Divider /> */}
-                            <Trend cumulative={cumulativeList} />
+                            <div className={styles.graph}>
+                                <Trend
+                                    cumulative={cumulativeList}
+                                    title={'累計'}
+                                    label={['累積感染者数', '既存感染者数', '死亡者数', '回復者数']}
+                                />
+                                <Trend cumulative={cumulativeList} title={'日别'} label={['感染者数']} />
+                            </div>
                         </div>
                     </div>
                 </Skeleton>

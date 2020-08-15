@@ -32,7 +32,7 @@ const Category = ({ title, count, addcount, rate, color }) => {
                         count = value[0]
                         addcount = value[1]
                         return (
-                            <div>
+                            <div className={styles.data}>
                                 <div className={styles.value}>{count}</div>
                                 <div className={styles.diff}>
                                     {' ( ' + (addcount >= 0 ? '+' + addcount : addcount) + ' ) '}
