@@ -1,22 +1,20 @@
 import React, { Component } from 'react'
-import { getVirusDataOnTime } from '../common/getDate'
+import { getVirusDataOnTime } from '../common/getData'
 import dayjs from 'dayjs'
 import styles from './page.module.css'
 import Category from './category'
 import Trend from './trend'
-// import MapComponent from './map'
-import { Divider, Skeleton, Select, Row, Col } from 'antd'
+import MapComponent from './map'
+import { Divider, Skeleton } from 'antd'
 // import 'antd/dist/antd.css'
-const { Option } = Select
+// const { Option } = Select, Select,Row, Col
 
 class Page extends Component {
     constructor(props) {
         super(props)
         this.state = {
             loading: true,
-            provinceList: [],
             lastUpdated: '',
-            cumulativeList: [],
             prefectures: [
                 {
                     confirmed: '',
@@ -97,57 +95,55 @@ class Page extends Component {
             const dailys = res.data.daily
             const prefectures = res.data.prefectures
             const updated = res.data.updated
-            const maplist = prefectures
-            let provinceList = []
-            provinceList.push('全国')
-            maplist.forEach((item) => {
-                provinceList.push(item.name_ja)
-            })
-            let cumulative = [
-                [
-                    'date',
-                    'confirmed',
-                    'confirmedCumulative',
-                    'activeCumulative',
-                    'deceasedCumulative',
-                    'recoveredCumulative'
-                ]
-            ]
-            dailys.forEach((item) => {
-                cumulative.push([
-                    item.date,
-                    item.confirmed,
-                    item.confirmedCumulative,
-                    item.deceasedCumulative,
-                    item.recoveredCumulative,
-                    item.activeCumulative
-                ])
-            })
+
             this.setState({
                 prefectures: prefectures,
                 dailys: dailys,
                 lastUpdated: updated,
-                provinceList: provinceList,
-                cumulativeList: cumulative,
                 loading: false
             })
         }
+        // const japanMapJson = await getJapanJson()
+        // if (japanMapJson.status === 200) {
+        //     this.setState({ japanMapJson: japanMapJson.data })
+        // }
     }
-    toProvince = (province) => {
-        return
-    }
+    // toProvince = (province) => {
+    //     return
+    // }
     render() {
-        const { dailys, provinceList, loading, cumulativeList } = this.state
-        // const columns = [
-        //     { title: '地区', dataIndex: 'name', key: 'name' },
-        //     { title: '确诊', dataIndex: 'confirmedCount', key: 'confirmedCount' },
-        //     { title: '死亡', dataIndex: 'deadCount', key: 'deadCount' },
-        //     { title: '治愈', dataIndex: 'curedCount', key: 'curedCount' }
-        // ]
+        const { dailys, prefectures, loading } = this.state
+        let provinceList = []
+        provinceList.push('全国')
+        prefectures.forEach((item) => {
+            provinceList.push(item.name_ja)
+        })
+        const cumulativeList = [
+            [
+                'date',
+                'confirmed',
+                'confirmedCumulative',
+                'activeCumulative',
+                'deceasedCumulative',
+                'recoveredCumulative'
+            ]
+        ]
+        dailys.forEach((item) => {
+            cumulativeList.push([
+                item.date,
+                item.confirmed,
+                item.confirmedCumulative,
+                item.deceasedCumulative,
+                item.recoveredCumulative,
+                item.activeCumulative
+            ])
+        })
         const today = dailys[dailys.length - 1]
-        // const treeMonthBefore =
-        const startDay = dayjs(new Date(Date.now() - 3 * 30 * 24 * 60 * 60 * 1000)).format('YYYY-MM-DD')
-        // console.log(cumulativeList)
+        const startDay = dayjs(new Date(Date.now() - 4 * 30 * 24 * 60 * 60 * 1000)).format('YYYY-MM-DD')
+        const activeList = []
+        prefectures.forEach((item) => {
+            activeList.push({ name: item.name, value: item.active, name_ja: item.name_ja })
+        })
         return (
             <div className={styles.page}>
                 <Skeleton loading={loading} active paragraph={{ rows: 50 }}>
@@ -234,8 +230,8 @@ class Page extends Component {
                                     label={['感染者数']}
                                     start={startDay}
                                 />
-                                {/* <MapComponent data={today} /> */}
                             </div>
+                            <MapComponent data={activeList} />
                         </div>
                     </div>
                 </Skeleton>

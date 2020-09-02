@@ -67,7 +67,7 @@ footer {
     justify-content: space-between;
     align-items: stretch;
     /* flex-wrap: wrap; */
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
 }
 /* .allCountry {
   background-color: #6c63ff;

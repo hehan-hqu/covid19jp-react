@@ -1,92 +1,140 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+// import { Component } from 'react'
 import ReactEcharts from 'echarts-for-react/lib/core'
 import echarts from 'echarts/lib/echarts'
-import 'echarts/lib/chart/line'
-import 'echarts/lib/chart/bar'
-import 'echarts/lib/chart/pie'
+import 'echarts/lib/chart/map'
+import 'echarts/lib/component/visualMap'
 import 'echarts/lib/component/tooltip'
-import 'echarts/lib/component/toolbox'
 import 'echarts/lib/component/title'
-import 'echarts/lib/component/legend'
-import 'echarts/lib/component/grid'
-import 'echarts/lib/component/dataZoom'
+// import 'echarts/lib/component/legend'
 import styles from './map.module.css'
+import { getJapanJson } from '../common/getData'
 
-const getOption = (data) => {
-    const symbolSize = 0
-    let option = {
-        title: { text: title },
-        legend: { data: label },
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'cross'
-            }
-            // showContent: false
-        },
-        toolbox: {
-            feature: {
-                // dataView: { show: true, readOnly: false },
-                restore: { show: true },
-                saveAsImage: { show: true }
-            }
-        },
-        dataset: {
-            dimensions: ['日付', '感染者数', '累積感染者数', '死亡者数', '回復者数', '既存感染者数'],
-            source: source
-        },
-        xAxis: { type: 'time', gridIndex: 0, name: '日付' },
-        yAxis: {
-            type: 'value'
-        },
-        dataZoom: [
-            {
-                // start: 80,
-                type: 'inside',
-                startValue: start
+let japanMapJson = require('./japan.json')
+
+// async function initMap() {
+//     const japanMapJson = await getJapanJson()
+//     // console.log(japanMapJson)
+//     echarts.registerMap('japan', japanMapJson.data)
+// }
+function MapComponent(props) {
+    // const [activeList, setActiveList] = useState(props.data)
+    const activeList = props.data
+    echarts.registerMap('japan', japanMapJson)
+    const getOption = () => {
+        let option = {
+            title: { text: '感染マップ' },
+            toolbox: {
+                feature: {
+                    // dataView: { show: true, readOnly: false },
+                    restore: { show: true }
+                }
             },
-            {
-                type: 'slider',
-                startValue: start
-            }
-        ],
-        series: []
-    }
-    if (label.length > 1) {
-        for (let i = 0; i < label.length; i++) {
-            option.series.push({
-                type: 'line',
-                symbolSize: symbolSize,
-                encode: {
-                    x: '日付',
-                    y: label[i]
+            tooltip: {
+                show: true,
+                formatter: function(params) {
+                let tip = ''
+                if (params.data) {
+                    tip = params.data.name_ja + '：<br>現在感染者数：' + params.data['value'] + '<br>'
+                }
+                return tip
+                }
+            },
+            visualMap: {
+                show: true,
+                type: 'piecewise',
+                min: 0,
+                max: 2000,
+                align: 'right',
+                top: '2%',
+                right: 0,
+                left: 'center',
+                inRange: {
+                    color: ['#ffc0b1', '#ff8c71', '#ef1717', '#9c0505']
                 },
-                name: label[i]
-            })
-        }
-    } else {
-        option.series.push({
-            type: 'bar',
-            encode: {
-                x: '日付',
-                y: label[0]
+                pieces: [
+                    { min: 1000 },
+                    { min: 500, max: 999 },
+                    { min: 100, max: 499 },
+                    { min: 1, max: 99 }
+                    // { min: 10, max: 99 },
+                ],
+                orient: 'horizontal',
+                showLabel: true,
+                padding: 5,
+                text: ['高', '低'],
+                itemWidth: 10,
+                itemHeight: 10,
+                textStyle: {
+                    fontSize: 12
+                }
             },
-            name: label[0]
-        })
+            series: [
+                {
+                    // left: 'center',
+                    type: 'map',
+                    map: 'japan',
+                    // name: '現在感染者数',
+                    // silent: province ? true : false,
+                    label: {
+                        show: false,
+                        position: 'inside',
+                        fontSize: 6,
+                        formatter: (params) => {
+                            return params.data.name_ja
+                        }
+                    },
+                    data: activeList,
+                    zoom: 1.5,
+                    center: [139.54, 39.55],
+                    roam: true,
+                    showLegendSymbol: false,
+                    rippleEffect: {
+                        show: true,
+                        brushType: 'stroke',
+                        scale: 2.5,
+                        period: 4
+                    }
+                }
+            ]
+        }
+        return option
     }
-    return option
-}
-const MapComponent = (props) => {
-    // console.log(props.cumulative)
     return (
         <ReactEcharts
+            className={styles.map}
+            // style={{ height: '400px' }}
             echarts={echarts}
-            option={getOption(props.data)}
+            option={getOption()}
             notMerge={true}
             lazyUpdate={true}
-            className={styles.trend}
-        ></ReactEcharts>
+        />
     )
 }
+
+// class MapComponent extends Component {
+//     // constructor(props) {
+//     //     super(props)
+//     // }
+//     async componentDidMount() {
+//         console.log('装载....')
+//         const japanMapJson = await getJapanJson()
+//         echarts.registerMap('japan', japanMapJson.data)
+//     }
+//     componentWillUnmount() {
+//         console.log('卸载....')
+//     }
+//     render() {
+//         return (
+//             <ReactEcharts
+//                 style={{ height: '400px' }}
+//                 echarts={echarts}
+//                 option={getOption()}
+//                 notMerge={true}
+//                 lazyUpdate={true}
+//             />
+//         )
+//     }
+// }
 
 export default MapComponent
