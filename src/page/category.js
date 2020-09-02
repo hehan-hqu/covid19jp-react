@@ -1,5 +1,5 @@
 import * as React from 'react'
-import styles from './style.module.css'
+import styles from './category.module.css'
 import { Col, Statistic } from 'antd'
 // import 'antd/dist/antd.css'
 

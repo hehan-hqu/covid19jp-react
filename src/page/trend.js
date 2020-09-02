@@ -2,14 +2,17 @@ import React from 'react'
 import ReactEcharts from 'echarts-for-react/lib/core'
 import echarts from 'echarts/lib/echarts'
 import 'echarts/lib/chart/line'
+import 'echarts/lib/chart/bar'
 import 'echarts/lib/chart/pie'
 import 'echarts/lib/component/tooltip'
+import 'echarts/lib/component/toolbox'
 import 'echarts/lib/component/title'
 import 'echarts/lib/component/legend'
 import 'echarts/lib/component/grid'
-import styles from './style.module.css'
+import 'echarts/lib/component/dataZoom'
+import styles from './trend.module.css'
 
-const getOption = (title, label, source) => {
+const getOption = (title, label, source, start) => {
     const symbolSize = 0
     let option = {
         title: { text: title },
@@ -23,7 +26,7 @@ const getOption = (title, label, source) => {
         },
         toolbox: {
             feature: {
-                dataView: { show: true, readOnly: false },
+                // dataView: { show: true, readOnly: false },
                 restore: { show: true },
                 saveAsImage: { show: true }
             }
@@ -36,17 +39,39 @@ const getOption = (title, label, source) => {
         yAxis: {
             type: 'value'
         },
+        dataZoom: [
+            {
+                // start: 80,
+                type: 'inside',
+                startValue: start
+            },
+            {
+                type: 'slider',
+                startValue: start
+            }
+        ],
         series: []
     }
-    for (let i = 0; i < label.length; i++) {
+    if (label.length > 1) {
+        for (let i = 0; i < label.length; i++) {
+            option.series.push({
+                type: 'line',
+                symbolSize: symbolSize,
+                encode: {
+                    x: '日付',
+                    y: label[i]
+                },
+                name: label[i]
+            })
+        }
+    } else {
         option.series.push({
-            type: 'line',
-            symbolSize: symbolSize,
+            type: 'bar',
             encode: {
                 x: '日付',
-                y: label[i]
+                y: label[0]
             },
-            name: label[i]
+            name: label[0]
         })
     }
     return option
@@ -57,7 +82,7 @@ const Trend = (props) => {
     return (
         <ReactEcharts
             echarts={echarts}
-            option={getOption(props.title, props.label, props.cumulative)}
+            option={getOption(props.title, props.label, props.cumulative, props.start)}
             notMerge={true}
             lazyUpdate={true}
             className={styles.trend}

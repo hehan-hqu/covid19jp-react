@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { getVirusDataOnTime } from '../services/getDate'
+import { getVirusDataOnTime } from '../common/getDate'
 import dayjs from 'dayjs'
-import styles from './style.module.css'
-import Category from '../category/Category'
-import Trend from '../trend/Trend'
+import styles from './page.module.css'
+import Category from './category'
+import Trend from './trend'
+// import MapComponent from './map'
 import { Divider, Skeleton, Select, Row, Col } from 'antd'
 // import 'antd/dist/antd.css'
 const { Option } = Select
@@ -144,7 +145,9 @@ class Page extends Component {
         //     { title: '治愈', dataIndex: 'curedCount', key: 'curedCount' }
         // ]
         const today = dailys[dailys.length - 1]
-        console.log(cumulativeList)
+        // const treeMonthBefore =
+        const startDay = dayjs(new Date(Date.now() - 3 * 30 * 24 * 60 * 60 * 1000)).format('YYYY-MM-DD')
+        // console.log(cumulativeList)
         return (
             <div className={styles.page}>
                 <Skeleton loading={loading} active paragraph={{ rows: 50 }}>
@@ -223,8 +226,15 @@ class Page extends Component {
                                     cumulative={cumulativeList}
                                     title={'累計'}
                                     label={['累積感染者数', '既存感染者数', '死亡者数', '回復者数']}
+                                    start={startDay}
                                 />
-                                <Trend cumulative={cumulativeList} title={'日别'} label={['感染者数']} />
+                                <Trend
+                                    cumulative={cumulativeList}
+                                    title={'日别'}
+                                    label={['感染者数']}
+                                    start={startDay}
+                                />
+                                {/* <MapComponent data={today} /> */}
                             </div>
                         </div>
                     </div>
