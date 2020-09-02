@@ -7,3 +7,8 @@
     padding: 0.8rem;
     width: 45%;
 }
+@media (max-width: 1199px) {
+    .map{
+        width:inherit
+    }
+}

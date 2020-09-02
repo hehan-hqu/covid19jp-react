@@ -218,6 +218,7 @@ class Page extends Component {
                                 </p>
                             </div> */}
                             <div className={styles.graph}>
+                            {/* <div> */}
                                 <Trend
                                     cumulative={cumulativeList}
                                     title={'累計'}
