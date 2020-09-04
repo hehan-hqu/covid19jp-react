@@ -10,7 +10,7 @@ import 'echarts/lib/component/title'
 import styles from './map.module.css'
 import { getJapanJson } from '../common/getData'
 
-let japanMapJson = require('./japan.json')
+let japanMapJson = require('./Japan.json')
 
 // async function initMap() {
 //     const japanMapJson = await getJapanJson()
@@ -32,12 +32,12 @@ function MapComponent(props) {
             },
             tooltip: {
                 show: true,
-                formatter: function(params) {
-                let tip = ''
-                if (params.data) {
-                    tip = params.data.name_ja + '：<br>現在感染者数：' + params.data['value'] + '<br>'
-                }
-                return tip
+                formatter: function (params) {
+                    let tip = ''
+                    if (params.data) {
+                        tip = params.data.name_ja + '：<br>現在感染者数：' + params.data['value'] + '<br>'
+                    }
+                    return tip
                 }
             },
             visualMap: {
